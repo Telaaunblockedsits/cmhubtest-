@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CM-Hub: Your go-to platform for finding gaming groups, ranked matches, and tournaments.">
+    <meta name="keywords" content="CM-Hub, gaming, wallet, funds">
+    <meta name="author" content="CM-Hub Team">
+    <title>Wallet - CM-Hub</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #333;
+            color: #fff;
+        }
+        .header {
+            background: #222;
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 2px -2px gray;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 90%;
+            margin: 0 auto;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #e63946;
+        }
+        .nav-links {
+            list-style: none;
+            display: flex;
+        }
+        .nav-links li {
+            margin-left: 20px;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 18px;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover {
+            color: #e63946;
+        }
+        .content {
+            padding: 100px 20px;
+            text-align: center;
+        }
+        .wallet-info {
+            background: #444;
+            padding: 20px;
+            border-radius: 10px;
+            display: inline-block;
+            text-align: left;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        .wallet-info h2 {
+            color: #e63946;
+            margin-bottom: 20px;
+        }
+        .wallet-info p {
+            color: #ccc;
+            margin-bottom: 10px;
+        }
+        .btn {
+            background-color: #e63946;
+            color: #fff;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background-color: #b51730;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="logo">CM-Hub</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="lfg.html">LFG</a></li>
+                <li><a href="ranked.html">Ranked</a></li>
+                <li><a href="tournaments.html">Tournaments</a></li>
+                <li><a href="wallet.html">Wallet</a></li>
+                <li><a href="team.html">Team Login</a></li>
+                <li><a href="#" onclick="openUpdateLog()">Update Log</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <div class="content">
+        <div class="wallet-info" id="walletInfo">
+            <h2>Wallet Balance</h2>
+            <p>Loading...</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetchWalletInfo();
+        });
+
+        async function fetchWalletInfo() {
+            try {
+                const response = await fetch('https://example.com/api/wallet');
+                const data = await response.json();
+                document.getElementById('walletInfo').innerHTML = `
+                    <h2>Wallet Balance</h2>
+                    <p>Funds: $${data.funds}</p>
+                `;
+            } catch (error) {
+                console.error('Error fetching wallet info:', error);
+                document.getElementById('walletInfo').innerHTML = `
+                    <h2>Wallet Balance</h2>
+                    <p>Error loading wallet info.</p>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>
