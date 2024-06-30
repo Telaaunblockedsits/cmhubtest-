@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CM-Hub</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #333;
+            color: #fff;
+        }
+        .header {
+            background: #222;
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 2px -2px gray;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 90%;
+            margin: 0 auto;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #e63946;
+        }
+        .nav-links {
+            list-style: none;
+            display: flex;
+        }
+        .nav-links li {
+            margin-left: 20px;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 18px;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover {
+            color: #e63946;
+        }
+        .content {
+            padding: 100px 20px;
+            text-align: center;
+        }
+        .hero {
+            margin: 50px 0;
+        }
+        .hero h1 {
+            font-size: 50px;
+            margin-bottom: 20px;
+            animation: fadeIn 2s ease-in-out;
+        }
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 40px;
+            animation: fadeIn 2s ease-in-out 1s;
+        }
+        .btn {
+            background-color: #e63946;
+            color: #fff;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            animation: fadeIn 2s ease-in-out 2s;
+        }
+        .btn:hover {
+            background-color: #b51730;
+        }
+        .cards {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+        .card {
+            background: #444;
+            margin: 10px;
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+        .card h3 {
+            margin: 10px 0;
+            color: #e63946;
+        }
+        .card p {
+            color: #ccc;
+        }
+        .sponsor-bar {
+            background: #444;
+            padding: 10px 0;
+            margin: 20px 0;
+        }
+        .sponsor-bar h2 {
+            margin: 0;
+            font-size: 24px;
+            color: #e63946;
+        }
+        .sponsors {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .sponsor {
+            margin: 10px;
+            padding: 10px;
+            background: #555;
+            border-radius: 5px;
+            color: #fff;
+        }
+        .ads {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+        .ad {
+            background: #444;
+            margin: 10px;
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+            height: 250px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #ccc;
+        }
+        .social-buttons {
+            margin: 20px 0;
+        }
+        .social-buttons a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: #fff;
+            font-size: 24px;
+            transition: color 0.3s;
+        }
+        .social-buttons a:hover {
+            color: #e63946;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+        .modal-content {
+            background: #444;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            animation: slideIn 1s ease-in-out;
+        }
+        .modal-content h2 {
+            color: #e63946;
+            margin-bottom: 20px;
+        }
+        .modal-content p {
+            color: #ccc;
+            margin-bottom: 20px;
+        }
+        .modal-content .btn {
+            background-color: #e63946;
+        }
+        .goal, .why-us {
+            margin: 40px 20px;
+            padding: 20px;
+            background: #444;
+            border-radius: 10px;
+            text-align: left;
+        }
+        .goal h2, .why-us h2 {
+            color: #e63946;
+            margin-bottom: 20px;
+        }
+        .goal p, .why-us p {
+            color: #ccc;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideIn {
+            from { transform: translateY(-100%); }
+            to { transform: translateY(0); }
+        }
+        .loading-screen {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: #222;
+            color: #e63946;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 3000;
+        }
+        .loading-screen h1 {
+            font-size: 50px;
+            animation: fadeIn 2s ease-in-out infinite;
+        }
+        .update-log-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+        .update-log-content {
+            background: #444;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            animation: slideIn 1s ease-in-out;
+            max-width: 80%;
+            max-height: 80%;
+            overflow-y: auto;
+        }
+        .update-log-content h2 {
+            color: #e63946;
+            margin-bottom: 20px;
+        }
+        .update-log-content p {
+            color: #ccc;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="loading-screen" id="loadingScreen">
+        <h1>CM-Hub</h1>
+    </div>
+
+    <header class="header">
+        <nav class="navbar">
+            <div class="logo">CM-Hub</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="lfg.html">LFG</a></li>
+                <li><a href="ranked.html">Ranked</a></li>
+                <li><a href="tournaments.html">Tournaments</a></li>
+                <li><a href="example.html">Example</a></li>
+                <li><a href="#" onclick="openUpdateLog()">Update Log</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <div class="content">
+        <div class="hero">
+            <h1>Welcome to CM-Hub</h1>
+            <p>Your go-to platform for finding gaming groups, ranked matches, and tournaments.</p>
+            <button class="btn">Get Started</button>
+        </div>
+
+        <div class="social-buttons">
+            <a href="#" target="_blank">Facebook</a>
+            <a href="#" target="_blank">Twitter</a>
+            <a href="#" target="_blank
+
+">Instagram</a>
+        </div>
+
+        <div class="goal">
+            <h2>Our Goal</h2>
+            <p>Our goal is to create a thriving community where gamers can find the perfect groups, compete in ranked matches, and participate in exciting tournaments.</p>
+        </div>
+
+        <div class="why-us">
+            <h2>Why Us</h2>
+            <p>We provide a comprehensive platform with detailed features and a user-friendly interface, designed to enhance your gaming experience.</p>
+        </div>
+
+        <div class="cards">
+            <div class="card">
+                <h3>LFG</h3>
+                <p>Find your perfect gaming group.</p>
+            </div>
+            <div class="card">
+                <h3>Ranked</h3>
+                <p>Compete in ranked matches.</p>
+            </div>
+            <div class="card">
+                <h3>Tournaments</h3>
+                <p>Join and organize tournaments.</p>
+            </div>
+        </div>
+
+        <div class="sponsor-bar">
+            <h2>Sponsors</h2>
+            <div class="sponsors">
+                <div class="sponsor">Sponsor 1</div>
+                <div class="sponsor">Sponsor 2</div>
+                <div class="sponsor">Sponsor 3</div>
+            </div>
+        </div>
+
+        <div class="ads">
+            <div class="ad">Ad Box 1</div>
+            <div class="ad">Ad Box 2</div>
+            <div class="ad">Ad Box 3</div>
+        </div>
+    </div>
+    
+    <div class="modal" id="iosModal">
+        <div class="modal-content">
+            <h2>Add CM-Hub to Home Screen</h2>
+            <p>Tap the Share button and then 'Add to Home Screen' to install CM-Hub as an app on your iOS device.</p>
+            <button class="btn" onclick="closeModal()">Close</button>
+        </div>
+    </div>
+
+    <div class="update-log-modal" id="updateLogModal">
+        <div class="update-log-content">
+            <h2>Update Log</h2>
+            <p>Version 1.0 - Initial release.</p>
+            <p>Version 1.1 - Bug fixes and performance improvements.</p>
+            <p>Version 1.2 - Added new features and enhancements.</p>
+            <button class="btn" onclick="closeUpdateLog()">Close</button>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const btn = document.querySelector('.btn');
+            btn.addEventListener('click', function() {
+                alert('Getting started!');
+            });
+
+            const loadingScreen = document.getElementById('loadingScreen');
+            setTimeout(() => {
+                loadingScreen.style.display = 'none';
+            }, 3000);
+
+            if (/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream) {
+                document.getElementById('iosModal').style.display = 'flex';
+            }
+        });
+
+        function closeModal() {
+            document.getElementById('iosModal').style.display = 'none';
+        }
+
+        function openUpdateLog() {
+            document.getElementById('updateLogModal').style.display = 'flex';
+        }
+
+        function closeUpdateLog() {
+            document.getElementById('updateLogModal').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
